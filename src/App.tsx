@@ -15,6 +15,7 @@ import BlogsPage from "./pages/BlogsPage";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { HistoryProvider } from "./contexts/HistoryContext";
+import ReadMorePage from "./pages/ReadMorePage";
 
 // Protected route wrapper component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -80,6 +81,14 @@ const AppRoutes = () => {
           element={
             <ProtectedRoute>
               <BlogsPage />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/blogs/:id" 
+          element={
+            <ProtectedRoute>
+              <ReadMorePage />
             </ProtectedRoute>
           } 
         />

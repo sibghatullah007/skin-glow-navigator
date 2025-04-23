@@ -1,8 +1,9 @@
 
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ExternalLink } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Button } from './ui/button';
+import { Link } from 'react-router-dom';
 
 interface BlogPost {
   id: number;
@@ -32,9 +33,9 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
       </CardHeader>
       <CardContent className="pt-0">
         <Button variant="outline" className="w-full" asChild>
-          <a href={post.readMoreUrl} target="_blank" rel="noopener noreferrer">
-            Read More <ExternalLink className="ml-2 h-4 w-4" />
-          </a>
+          <Link to={`/blogs/${post.id}`}>
+            Read More <ArrowRight className="ml-2 h-4 w-4" />
+          </Link>
         </Button>
       </CardContent>
     </Card>
