@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
@@ -10,12 +9,14 @@ import { User } from 'lucide-react';
 import NavBar from '@/components/NavBar';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
+type SkinType = 'oily' | 'dry' | 'combination' | 'normal';
+
 const ProfilePage: React.FC = () => {
   const { user, updateUserProfile } = useAuth();
   const { toast } = useToast();
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState(user?.name || '');
-  const [skinType, setSkinType] = useState(user?.skinType || 'normal');
+  const [skinType, setSkinType] = useState<SkinType>(user?.skinType as SkinType || 'normal');
 
   if (!user) {
     return null;
@@ -24,7 +25,7 @@ const ProfilePage: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    updateUserProfile({ name, skinType: skinType as 'oily' | 'dry' | 'combination' | 'normal' });
+    updateUserProfile({ name, skinType });
     
     toast({
       title: "Success",
@@ -32,6 +33,10 @@ const ProfilePage: React.FC = () => {
     });
     
     setIsEditing(false);
+  };
+
+  const handleSkinTypeChange = (value: string) => {
+    setSkinType(value as SkinType);
   };
 
   return (
@@ -77,7 +82,7 @@ const ProfilePage: React.FC = () => {
                 
                 <div className="space-y-2">
                   <label htmlFor="skinType" className="text-sm font-medium">Skin Type</label>
-                  <Select value={skinType} onValueChange={setSkinType}>
+                  <Select value={skinType} onValueChange={handleSkinTypeChange}>
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Select skin type" />
                     </SelectTrigger>

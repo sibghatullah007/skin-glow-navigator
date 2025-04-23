@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Home, History, User, Settings, LogOut, FileText } from 'lucide-react';
@@ -11,27 +12,27 @@ const NavBar: React.FC = () => {
 
   const menuItems = [
     {
-      icon: Home,
+      icon: <Home className="w-5 h-5 mx-auto" />,
       label: "Home",
       href: "/",
     },
     {
-      icon: History,
+      icon: <History className="w-5 h-5 mx-auto" />,
       label: "History",
       href: "/history",
     },
     {
-      icon: User,
+      icon: <User className="w-5 h-5 mx-auto" />,
       label: "Profile",
       href: "/profile",
     },
     {
-      icon: Settings,
+      icon: <Settings className="w-5 h-5 mx-auto" />,
       label: "Settings",
       href: "/settings",
     },
     {
-      icon: FileText,
+      icon: <FileText className="w-5 h-5 mx-auto" />,
       label: "Blogs",
       href: "/blogs",
     },
