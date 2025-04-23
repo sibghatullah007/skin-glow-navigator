@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -12,6 +11,7 @@ import HistoryPage from "./pages/HistoryPage";
 import ProfilePage from "./pages/ProfilePage";
 import SettingsPage from "./pages/SettingsPage";
 import TipsPage from "./pages/TipsPage";
+import BlogsPage from "./pages/BlogsPage";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { HistoryProvider } from "./contexts/HistoryContext";
@@ -72,6 +72,14 @@ const AppRoutes = () => {
           element={
             <ProtectedRoute>
               <TipsPage />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/blogs" 
+          element={
+            <ProtectedRoute>
+              <BlogsPage />
             </ProtectedRoute>
           } 
         />
