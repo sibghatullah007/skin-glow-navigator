@@ -1,11 +1,12 @@
-
 import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
+import { Youtube } from 'lucide-react';
 import FileUpload from '@/components/FileUpload';
 import SkinTypeSelector from '@/components/SkinTypeSelector';
 import Results from '@/components/Results';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuth } from '@/contexts/AuthContext';
 import { useHistory } from '@/contexts/HistoryContext';
 import NavBar from '@/components/NavBar';
@@ -19,18 +20,15 @@ const Index = () => {
   const [selectedSkinType, setSelectedSkinType] = useState<string>('');
 
   useEffect(() => {
-    // Reset to the user's preferred skin type if available
     if (user?.skinType && step === 'skinType') {
       setSelectedSkinType(user.skinType);
     }
   }, [user, step]);
 
-  // Redirect to login if not authenticated
   if (!isAuthenticated) {
     return <Navigate to="/login" />;
   }
 
-  // This would normally come from your backend or be localized properly
   const translations = {
     title: "Skin Map by Vivere Skin",
     upload_prompt: "Upload your image to get personalized skincare recommendations.",
@@ -48,7 +46,6 @@ const Index = () => {
     normal: "Normal"
   };
 
-  // This would normally come from your API
   const mockResults = {
     concerns: ["Blemishes", "Dark Spots", "Redness"],
     products: [
@@ -58,6 +55,21 @@ const Index = () => {
     ]
   };
 
+  const skincareTipsVideos = [
+    {
+      id: "9q1HJI1WYGs",
+      title: "10 Skincare Tips for Healthy Glowing Skin",
+    },
+    {
+      id: "JyH4DdqwX7Y",
+      title: "Morning Skincare Routine for Beginners",
+    },
+    {
+      id: "EZ4UA2pD1rY",
+      title: "Understanding Your Skin Type",
+    }
+  ];
+
   const handleFileSelect = (file: File) => {
     setSelectedFile(file);
     setStep('skinType');
@@ -65,15 +77,12 @@ const Index = () => {
 
   const handleSkinTypeSelect = (type: string) => {
     setSelectedSkinType(type);
-    // Here you would normally send the file and skin type to your backend
     setStep('results');
     
-    // Add to history
     addToHistory({
       skinType: type,
       concerns: mockResults.concerns,
       recommendations: mockResults.products,
-      // In a real app, you would get the image URL after upload
       imageUrl: selectedFile ? URL.createObjectURL(selectedFile) : undefined,
     });
   };
@@ -100,10 +109,39 @@ const Index = () => {
 
         <div className="space-y-6">
           {step === 'upload' && (
-            <FileUpload
-              onFileSelect={handleFileSelect}
-              translations={translations}
-            />
+            <>
+              <FileUpload
+                onFileSelect={handleFileSelect}
+                translations={translations}
+              />
+              
+              <div className="mt-12 space-y-6">
+                <div className="flex items-center gap-2 justify-center">
+                  <Youtube className="h-6 w-6 text-primary" />
+                  <h2 className="text-2xl font-semibold text-center">Skincare Tips</h2>
+                </div>
+                <div className="grid gap-6 md:grid-cols-2">
+                  {skincareTipsVideos.map((video) => (
+                    <Card key={video.id} className="overflow-hidden">
+                      <div className="aspect-video">
+                        <iframe
+                          className="w-full h-full"
+                          src={`https://www.youtube.com/embed/${video.id}`}
+                          title={video.title}
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
+                      </div>
+                      <CardHeader className="py-3">
+                        <CardTitle className="text-sm font-medium line-clamp-2">
+                          {video.title}
+                        </CardTitle>
+                      </CardHeader>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            </>
           )}
 
           {step === 'skinType' && selectedFile && (
