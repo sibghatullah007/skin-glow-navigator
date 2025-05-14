@@ -174,42 +174,13 @@ const Index = () => {
           {/* Left Column (Upload Area + Skincare Tips) */}
           <div className="md:col-span-7 space-y-8">
             {step === 'upload' && (
-              <>
-                <FileUpload
-                  onFileSelect={handleFileSelect}
-                  translations={{
-                    upload_prompt: t.upload_prompt,
-                    choose_file: t.choose_file
-                  }}
-                />
-                
-                <div className="space-y-6">
-                  <div className="flex items-center gap-2">
-                    <Youtube className="h-6 w-6 text-primary" />
-                    <h2 className="text-2xl font-semibold">{t.skincare_tips}</h2>
-                  </div>
-                  <div className="space-y-4">
-                    {skincareTipsVideos.map((video) => (
-                      <Card key={video.id} className="overflow-hidden">
-                        <div className="aspect-video">
-                          <iframe
-                            className="w-full h-full"
-                            src={`https://www.youtube.com/embed/${video.id}`}
-                            title={video.title}
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                          />
-                        </div>
-                        <CardHeader className="py-3">
-                          <CardTitle className="text-sm font-medium line-clamp-2">
-                            {video.title}
-                          </CardTitle>
-                        </CardHeader>
-                      </Card>
-                    ))}
-                  </div>
-                </div>
-              </>
+              <FileUpload
+                onFileSelect={handleFileSelect}
+                translations={{
+                  upload_prompt: t.upload_prompt,
+                  choose_file: t.choose_file
+                }}
+              />
             )}
             
             {step === 'skinType' && selectedFile && (
@@ -245,6 +216,35 @@ const Index = () => {
                   <Button onClick={handleReset} variant="outline">
                     {t.analyze_another}
                   </Button>
+                </div>
+              </div>
+            )}
+            
+            {step === 'upload' && (
+              <div className="space-y-6">
+                <div className="flex items-center gap-2">
+                  <Youtube className="h-6 w-6 text-primary" />
+                  <h2 className="text-2xl font-semibold">{t.skincare_tips}</h2>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {skincareTipsVideos.map((video) => (
+                    <Card key={video.id} className="overflow-hidden">
+                      <div className="aspect-video">
+                        <iframe
+                          className="w-full h-full"
+                          src={`https://www.youtube.com/embed/${video.id}`}
+                          title={video.title}
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
+                      </div>
+                      <CardHeader className="py-3">
+                        <CardTitle className="text-sm font-medium line-clamp-2">
+                          {video.title}
+                        </CardTitle>
+                      </CardHeader>
+                    </Card>
+                  ))}
                 </div>
               </div>
             )}
