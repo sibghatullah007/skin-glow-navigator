@@ -156,33 +156,35 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20">
-      <div className="container max-w-xl mx-auto py-12 px-4 space-y-8 pb-20 md:pb-12 md:ml-24">
-        <LanguageSwitcher 
-          currentLang={currentLang}
-          onLanguageChange={setCurrentLang}
-        />
+      <div className="container mx-auto py-12 px-4 md:px-6">
+        <div className="flex justify-end mb-6">
+          <LanguageSwitcher 
+            currentLang={currentLang}
+            onLanguageChange={setCurrentLang}
+          />
+        </div>
         
-        <div className="text-center space-y-4">
+        <div className="text-center mb-10">
           <h1 className="text-3xl font-semibold">
             {t.title}
           </h1>
         </div>
 
-        <div className="space-y-6">
-          {step === 'upload' && (
-            <>
-              <FileUpload
-                onFileSelect={handleFileSelect}
-                translations={{
-                  upload_prompt: t.upload_prompt,
-                  choose_file: t.choose_file
-                }}
-              />
-              
-              <div className="md:grid md:grid-cols-2 md:gap-6 space-y-8 md:space-y-0">
-                {/* Skincare Tips Videos */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+          {/* Left Column (Upload Area + Skincare Tips) */}
+          <div className="md:col-span-7 space-y-8">
+            {step === 'upload' && (
+              <>
+                <FileUpload
+                  onFileSelect={handleFileSelect}
+                  translations={{
+                    upload_prompt: t.upload_prompt,
+                    choose_file: t.choose_file
+                  }}
+                />
+                
                 <div className="space-y-6">
-                  <div className="flex items-center gap-2 justify-center md:justify-start">
+                  <div className="flex items-center gap-2">
                     <Youtube className="h-6 w-6 text-primary" />
                     <h2 className="text-2xl font-semibold">{t.skincare_tips}</h2>
                   </div>
@@ -207,77 +209,79 @@ const Index = () => {
                     ))}
                   </div>
                 </div>
-                
-                {/* Featured Blogs */}
-                <div className="space-y-6">
-                  <div className="flex items-center gap-2 justify-center md:justify-start">
-                    <FileText className="h-6 w-6 text-primary" />
-                    <h2 className="text-2xl font-semibold">{t.featured_blogs}</h2>
-                  </div>
-                  <div className="space-y-4">
-                    {featuredBlogs.map((blog) => (
-                      <Card key={blog.id} className="overflow-hidden h-full flex flex-col">
-                        <div className="h-32 relative overflow-hidden">
-                          <img 
-                            src={blog.imageUrl} 
-                            alt={blog.title}
-                            className="object-cover w-full h-full"
-                          />
-                        </div>
-                        <CardHeader className="py-3 flex-grow">
-                          <CardTitle className="text-base font-semibold line-clamp-2">
-                            {blog.title}
-                          </CardTitle>
-                          <p className="text-sm text-muted-foreground line-clamp-2 mt-1">{blog.description}</p>
-                        </CardHeader>
-                        <CardContent className="pt-0 pb-4">
-                          <Button variant="outline" size="sm" className="w-full" asChild>
-                            <Link to={`/blogs/${blog.id}`}>
-                              Read More
-                            </Link>
-                          </Button>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
+              </>
+            )}
+            
+            {step === 'skinType' && selectedFile && (
+              <div className="fade-in">
+                <SkinTypeSelector
+                  onSelect={handleSkinTypeSelect}
+                  translations={{
+                    select_skin: t.select_skin,
+                    oily: t.oily,
+                    dry: t.dry,
+                    combination: t.combination,
+                    normal: t.normal
+                  }}
+                  initialSelection={user?.skinType}
+                />
+              </div>
+            )}
+
+            {step === 'results' && (
+              <div className="space-y-4">
+                <Results
+                  concerns={mockResults.concerns}
+                  products={mockResults.products}
+                  translations={{
+                    results_title: t.results_title,
+                    concerns: t.concerns,
+                    recommendations: t.recommendations,
+                    no_concerns: t.no_concerns,
+                    no_recommendations: t.no_recommendations
+                  }}
+                />
+                <div className="text-center">
+                  <Button onClick={handleReset} variant="outline">
+                    {t.analyze_another}
+                  </Button>
                 </div>
               </div>
-            </>
-          )}
-
-          {step === 'skinType' && selectedFile && (
-            <div className="fade-in">
-              <SkinTypeSelector
-                onSelect={handleSkinTypeSelect}
-                translations={{
-                  select_skin: t.select_skin,
-                  oily: t.oily,
-                  dry: t.dry,
-                  combination: t.combination,
-                  normal: t.normal
-                }}
-                initialSelection={user?.skinType}
-              />
-            </div>
-          )}
-
-          {step === 'results' && (
-            <div className="space-y-4">
-              <Results
-                concerns={mockResults.concerns}
-                products={mockResults.products}
-                translations={{
-                  results_title: t.results_title,
-                  concerns: t.concerns,
-                  recommendations: t.recommendations,
-                  no_concerns: t.no_concerns,
-                  no_recommendations: t.no_recommendations
-                }}
-              />
-              <div className="text-center">
-                <Button onClick={handleReset} variant="outline">
-                  {t.analyze_another}
-                </Button>
+            )}
+          </div>
+          
+          {/* Right Column (Featured Blogs) */}
+          {step === 'upload' && (
+            <div className="md:col-span-5 space-y-6">
+              <div className="flex items-center gap-2">
+                <FileText className="h-6 w-6 text-primary" />
+                <h2 className="text-2xl font-semibold">{t.featured_blogs}</h2>
+              </div>
+              <div className="space-y-4">
+                {featuredBlogs.map((blog) => (
+                  <Card key={blog.id} className="overflow-hidden h-full flex flex-col">
+                    <div className="h-32 relative overflow-hidden">
+                      <img 
+                        src={blog.imageUrl} 
+                        alt={blog.title}
+                        className="object-cover w-full h-full"
+                      />
+                    </div>
+                    <CardHeader className="py-3 flex-grow">
+                      <CardTitle className="text-base font-semibold line-clamp-2">
+                        {blog.title}
+                      </CardTitle>
+                      <p className="text-sm text-muted-foreground line-clamp-2 mt-1">{blog.description}</p>
+                    </CardHeader>
+                    <CardContent className="pt-0 pb-4">
+                      <Button variant="outline" size="sm" className="w-full" asChild>
+                        <Link to={`/blogs/${blog.id}`}>
+                          Read More
+                        </Link>
+                      </Button>
+                    </CardContent>
+                  </Card>
+                ))}
               </div>
             </div>
           )}
