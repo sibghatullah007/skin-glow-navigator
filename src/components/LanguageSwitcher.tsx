@@ -15,11 +15,20 @@ interface LanguageSwitcherProps {
 }
 
 const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ currentLang, onLanguageChange }) => {
+  // Map of language codes to display names
+  const languageNames = {
+    en: "English",
+    fr: "Français",
+    es: "Español",
+  };
+
   return (
     <div className="absolute top-4 right-4">
       <Select value={currentLang} onValueChange={onLanguageChange}>
         <SelectTrigger className="w-[120px]">
-          <SelectValue />
+          <SelectValue>
+            {languageNames[currentLang as keyof typeof languageNames]}
+          </SelectValue>
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
