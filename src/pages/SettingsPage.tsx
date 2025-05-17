@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { useTheme } from '@/contexts/ThemeContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -31,7 +32,7 @@ const ThemeButton: React.FC<{
 
 const SettingsPage: React.FC = () => {
   const { theme, setTheme } = useTheme();
-  const [currentLang, setCurrentLang] = React.useState('en');
+  const { language } = useLanguage();
   
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20">
@@ -74,10 +75,7 @@ const SettingsPage: React.FC = () => {
               <CardDescription>Choose your preferred language</CardDescription>
             </CardHeader>
             <CardContent>
-              <LanguageSwitcher 
-                currentLang={currentLang} 
-                onLanguageChange={setCurrentLang} 
-              />
+              <LanguageSwitcher />
             </CardContent>
           </Card>
           

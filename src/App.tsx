@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -15,6 +16,7 @@ import BlogsPage from "./pages/BlogsPage";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { HistoryProvider } from "./contexts/HistoryContext";
+import { LanguageProvider } from "./contexts/LanguageContext";
 import ReadMorePage from "./pages/ReadMorePage";
 
 // Protected route wrapper component
@@ -103,11 +105,13 @@ const App = () => (
     <TooltipProvider>
       <AuthProvider>
         <ThemeProvider>
-          <HistoryProvider>
-            <Toaster />
-            <Sonner />
-            <AppRoutes />
-          </HistoryProvider>
+          <LanguageProvider>
+            <HistoryProvider>
+              <Toaster />
+              <Sonner />
+              <AppRoutes />
+            </HistoryProvider>
+          </LanguageProvider>
         </ThemeProvider>
       </AuthProvider>
     </TooltipProvider>

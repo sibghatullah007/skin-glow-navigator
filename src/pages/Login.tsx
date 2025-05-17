@@ -50,10 +50,7 @@ const Login: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20 flex items-center justify-center px-4">
-      <LanguageSwitcher 
-        currentLang="en"
-        onLanguageChange={() => {}}
-      />
+      <LanguageSwitcher className="absolute top-4 right-4" />
       
       <Card className="max-w-md w-full">
         <CardHeader className="space-y-1">

@@ -8,13 +8,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface LanguageSwitcherProps {
-  currentLang: string;
-  onLanguageChange: (lang: string) => void;
+  className?: string;
 }
 
-const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ currentLang, onLanguageChange }) => {
+const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ className }) => {
+  const { language, setLanguage } = useLanguage();
+
   // Map of language codes to display names
   const languageNames = {
     en: "English",
@@ -23,11 +25,11 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ currentLang, onLang
   };
 
   return (
-    <div className="absolute top-4 right-4">
-      <Select value={currentLang} onValueChange={onLanguageChange}>
+    <div className={className || "absolute top-4 right-4"}>
+      <Select value={language} onValueChange={setLanguage}>
         <SelectTrigger className="w-[120px]">
           <SelectValue>
-            {languageNames[currentLang as keyof typeof languageNames]}
+            {languageNames[language as keyof typeof languageNames]}
           </SelectValue>
         </SelectTrigger>
         <SelectContent>

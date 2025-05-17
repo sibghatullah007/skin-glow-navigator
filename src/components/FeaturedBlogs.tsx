@@ -4,6 +4,7 @@ import { FileText } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface BlogPost {
   id: number;
@@ -18,6 +19,9 @@ interface FeaturedBlogsProps {
 }
 
 const FeaturedBlogs: React.FC<FeaturedBlogsProps> = ({ title, blogs }) => {
+  const { language, translations } = useLanguage();
+  const t = translations[language as keyof typeof translations];
+
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-2">
@@ -43,7 +47,7 @@ const FeaturedBlogs: React.FC<FeaturedBlogsProps> = ({ title, blogs }) => {
             <CardContent className="pt-0 pb-4">
               <Button variant="outline" size="sm" className="w-full" asChild>
                 <Link to={`/blogs/${blog.id}`}>
-                  Read More
+                  {t.read_more || "Read More"}
                 </Link>
               </Button>
             </CardContent>
