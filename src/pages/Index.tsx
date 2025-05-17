@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import { Youtube, FileText } from 'lucide-react';
@@ -6,8 +5,9 @@ import FileUpload from '@/components/FileUpload';
 import SkinTypeSelector from '@/components/SkinTypeSelector';
 import Results from '@/components/Results';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
+import SkincareTipsVideos from '@/components/SkincareTipsVideos';
+import FeaturedBlogs from '@/components/FeaturedBlogs';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuth } from '@/contexts/AuthContext';
 import { useHistory } from '@/contexts/HistoryContext';
 import NavBar from '@/components/NavBar';
@@ -220,69 +220,22 @@ const Index = () => {
               </div>
             )}
             
+            {/* Skincare Tips Videos */}
             {step === 'upload' && (
-              <div className="space-y-6">
-                <div className="flex items-center gap-2">
-                  <Youtube className="h-6 w-6 text-primary" />
-                  <h2 className="text-2xl font-semibold">{t.skincare_tips}</h2>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {skincareTipsVideos.map((video) => (
-                    <Card key={video.id} className="overflow-hidden">
-                      <div className="aspect-video">
-                        <iframe
-                          className="w-full h-full"
-                          src={`https://www.youtube.com/embed/${video.id}`}
-                          title={video.title}
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
-                        />
-                      </div>
-                      <CardHeader className="py-3">
-                        <CardTitle className="text-sm font-medium line-clamp-2">
-                          {video.title}
-                        </CardTitle>
-                      </CardHeader>
-                    </Card>
-                  ))}
-                </div>
-              </div>
+              <SkincareTipsVideos 
+                title={t.skincare_tips}
+                videos={skincareTipsVideos}
+              />
             )}
           </div>
           
           {/* Right Column (Featured Blogs) */}
           {step === 'upload' && (
-            <div className="md:col-span-5 space-y-6">
-              <div className="flex items-center gap-2">
-                <FileText className="h-6 w-6 text-primary" />
-                <h2 className="text-2xl font-semibold">{t.featured_blogs}</h2>
-              </div>
-              <div className="space-y-4">
-                {featuredBlogs.map((blog) => (
-                  <Card key={blog.id} className="overflow-hidden h-full flex flex-col">
-                    <div className="h-32 relative overflow-hidden">
-                      <img 
-                        src={blog.imageUrl} 
-                        alt={blog.title}
-                        className="object-cover w-full h-full"
-                      />
-                    </div>
-                    <CardHeader className="py-3 flex-grow">
-                      <CardTitle className="text-base font-semibold line-clamp-2">
-                        {blog.title}
-                      </CardTitle>
-                      <p className="text-sm text-muted-foreground line-clamp-2 mt-1">{blog.description}</p>
-                    </CardHeader>
-                    <CardContent className="pt-0 pb-4">
-                      <Button variant="outline" size="sm" className="w-full" asChild>
-                        <Link to={`/blogs/${blog.id}`}>
-                          Read More
-                        </Link>
-                      </Button>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+            <div className="md:col-span-5">
+              <FeaturedBlogs 
+                title={t.featured_blogs}
+                blogs={featuredBlogs}
+              />
             </div>
           )}
         </div>
