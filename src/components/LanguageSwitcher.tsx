@@ -15,7 +15,7 @@ interface LanguageSwitcherProps {
 }
 
 const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ className }) => {
-  const { language, setLanguage } = useLanguage();
+  const { language, setLanguage, translations } = useLanguage();
 
   // Map of language codes to display names
   const languageNames = {

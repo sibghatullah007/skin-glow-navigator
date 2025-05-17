@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import { Youtube, FileText } from 'lucide-react';
@@ -12,11 +13,12 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useHistory } from '@/contexts/HistoryContext';
 import NavBar from '@/components/NavBar';
 import { Link } from 'react-router-dom';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const Index = () => {
   const { isAuthenticated, user } = useAuth();
   const { addToHistory } = useHistory();
-  const [currentLang, setCurrentLang] = useState('en');
+  const { language, translations } = useLanguage();
   const [step, setStep] = useState<'upload' | 'skinType' | 'results'>('upload');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [selectedSkinType, setSelectedSkinType] = useState<string>('');
@@ -31,65 +33,8 @@ const Index = () => {
     return <Navigate to="/login" />;
   }
 
-  const translations = {
-    en: {
-      title: "Skin Map by Vivere Skin",
-      upload_prompt: "Upload your image to get personalized skincare recommendations.",
-      choose_file: "📸 Choose an Image",
-      select_skin: "Select Your Skin Type",
-      results_title: "Analysis Results",
-      concerns: "Detected Skin Concerns",
-      recommendations: "Recommended Products",
-      no_concerns: "No major concerns detected.",
-      no_recommendations: "No recommendations available.",
-      analyze_another: "🔄 Analyze Another Image",
-      oily: "Oily",
-      dry: "Dry",
-      combination: "Combination",
-      normal: "Normal",
-      skincare_tips: "Skincare Tips",
-      featured_blogs: "Featured Blogs"
-    },
-    fr: {
-      title: "Carte Cutanée par Vivere Skin",
-      upload_prompt: "Téléchargez votre image pour obtenir des recommandations de soins personnalisées.",
-      choose_file: "📸 Choisir une Image",
-      select_skin: "Sélectionnez Votre Type de Peau",
-      results_title: "Résultats d'Analyse",
-      concerns: "Problèmes de Peau Détectés",
-      recommendations: "Produits Recommandés",
-      no_concerns: "Aucun problème majeur détecté.",
-      no_recommendations: "Aucune recommandation disponible.",
-      analyze_another: "🔄 Analyser une Autre Image",
-      oily: "Grasse",
-      dry: "Sèche",
-      combination: "Mixte",
-      normal: "Normale",
-      skincare_tips: "Conseils de Soin",
-      featured_blogs: "Blogs en Vedette"
-    },
-    es: {
-      title: "Mapa de Piel por Vivere Skin",
-      upload_prompt: "Suba su imagen para obtener recomendaciones de cuidado personalizadas.",
-      choose_file: "📸 Elegir una Imagen",
-      select_skin: "Seleccione Su Tipo de Piel",
-      results_title: "Resultados del Análisis",
-      concerns: "Problemas de Piel Detectados",
-      recommendations: "Productos Recomendados",
-      no_concerns: "No se detectaron problemas importantes.",
-      no_recommendations: "No hay recomendaciones disponibles.",
-      analyze_another: "🔄 Analizar Otra Imagen",
-      oily: "Grasa",
-      dry: "Seca",
-      combination: "Mixta", 
-      normal: "Normal",
-      skincare_tips: "Consejos para el Cuidado de la Piel",
-      featured_blogs: "Blogs Destacados"
-    }
-  };
-
   // Select the correct translation based on current language
-  const t = translations[currentLang as keyof typeof translations];
+  const t = translations[language as keyof typeof translations];
 
   const mockResults = {
     concerns: ["Blemishes", "Dark Spots", "Redness"],
@@ -158,10 +103,7 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20">
       <div className="container mx-auto py-12 px-4 md:px-6">
         <div className="flex justify-end mb-6">
-          <LanguageSwitcher 
-            currentLang={currentLang}
-            onLanguageChange={setCurrentLang}
-          />
+          <LanguageSwitcher />
         </div>
         
         <div className="text-center mb-10">
