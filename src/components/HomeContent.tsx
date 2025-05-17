@@ -38,7 +38,7 @@ const HomeContent = () => {
 
   const skincareTipsVideos = [
     {
-      id: "9OCvU-rSAGQ",
+      id: "GwJH6pRoolI",
       title: "10 Skincare Tips for Healthy Glowing Skin",
     },
     {
@@ -46,11 +46,11 @@ const HomeContent = () => {
       title: "Morning Skincare Routine for Beginners",
     },
     {
-      id: "5nY9kbJgWKw",
+      id: "q75oTkOsmFk",
       title: "Understanding Your Skin Type",
     },
     {
-      id: "9yGQnor78OU",
+      id: "XGKD-vjNciE",
       title: "Night Time Skincare Routine",
     }
   ];

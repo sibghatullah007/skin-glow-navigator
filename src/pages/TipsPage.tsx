@@ -57,22 +57,22 @@ const TipsPage: React.FC = () => {
     {
       title: "Morning Skincare Routine",
       description: "Learn how to establish an effective morning skincare routine for all skin types.",
-      videoId: "9OCvU-rSAGQ" // Updated to a real skincare routine video
+      videoId: "GwJH6pRoolI" // Updated to a real morning skincare routine video
     },
     {
       title: "Understanding Skin Types",
       description: "How to identify your skin type and choose the right products for your needs.",
-      videoId: "vic-EMOivpA" // Updated to a skin types video
+      videoId: "vic-EMOivpA" // Already working skincare video
     },
     {
       title: "Treating Acne Naturally",
       description: "Natural remedies and products to help combat acne and blemishes.",
-      videoId: "5nY9kbJgWKw" // Updated to an acne treatment video
+      videoId: "q75oTkOsmFk" // Updated to a real acne treatment video
     },
     {
       title: "Night Time Skincare Routine",
       description: "Essential steps for an effective evening skincare routine to help your skin repair overnight.",
-      videoId: "9yGQnor78OU" // Added a fourth video about night time skincare
+      videoId: "XGKD-vjNciE" // Updated to a working night routine video
     }
   ];
 
